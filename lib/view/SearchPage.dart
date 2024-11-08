@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image/components/image_view.dart';
 import 'package:image/model/model.dart' as model;
 
 class SearchPage extends StatefulWidget {
@@ -77,13 +78,16 @@ class _SearchPageState extends State<SearchPage> {
         itemCount: _searchImage.length,
         itemBuilder: (context, index) {
           final image = _searchImage[index].images[0].link;
-          return Card(
-            color:Color(0xFF121211),
-            child: ListTile(
-              title: Text(_searchImage[index].title,
-              style: const TextStyle(color: Colors.white)
+          return GestureDetector(
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ImageView(data: _searchImage[index]),) ),
+            child: Card(
+              color:Color(0xFF121211),
+              child: ListTile(
+                title: Text(_searchImage[index].title,
+                style: const TextStyle(color: Colors.white)
+                ),
+                leading: image != null ? Image.network(image) : null,
               ),
-              leading: image != null ? Image.network(image) : null,
             ),
           );
         },

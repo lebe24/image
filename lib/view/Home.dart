@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:image/components/image_card.dart';
+import 'package:image/components/image_view.dart';
 import 'package:image/model/model.dart' as model;
 import 'package:image/services/services.dart';
 import 'package:image/view/SearchPage.dart';
@@ -124,9 +126,13 @@ class _HomePageState extends State<HomePage> {
 
                         final image = _images[index].images[0].link;
                         return image.toLowerCase().endsWith('.mp4')
-                            ? Image.network("https://i.imgur.com/44avi6S.png")
-                            : Image.network(image);
-                      },
+                            ? GestureDetector(
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ImageView(data: _images[index]),) ),
+                              child: PhotoCard(child: Image.network("https://i.imgur.com/44avi6S.png")))
+                            : GestureDetector(
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ImageView(data: _images[index]),) ),
+                              child: PhotoCard(child: Image.network(image,fit: BoxFit.cover,)));
+                      }
                     )
                   : const Center(
                       key: Key('emptyState'),
